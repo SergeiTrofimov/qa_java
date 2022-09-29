@@ -18,7 +18,6 @@ public class Lion {
         this.feline = feline;
     }
 
-    //Feline feline = new Feline();
 
     public int getKittens() {
         return feline.getKittens();
