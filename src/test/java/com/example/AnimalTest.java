@@ -21,7 +21,7 @@ public class AnimalTest {
     Animal animal = new Animal();
 
 
-    @Parameterized.Parameters // добавили аннотацию
+    @Parameterized.Parameters
     public static Object[][] getSumData() {
         return new Object[][]{
                 {"Травоядное", List.of("Трава", "Различные растения")},
@@ -43,6 +43,3 @@ public class AnimalTest {
     assertEquals(expected, actual);
     }
 }
-
-
-
