@@ -7,9 +7,6 @@ import org.junit.runners.Parameterized;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,39 +17,65 @@ public class LionTest {
     public String sex;
     @Parameterized.Parameter(1)
     public boolean expected;
-
-    @Before
-    public void mockitoInit(){
-        MockitoAnnotations.openMocks(this);
-    }
     @Mock
     Feline feline;
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Проверка для пола, сейчас лев -{0}")
     public static Object[][] getSumData() {
         return new Object[][]{
                 {"Самец", true},
                 {"Самка", false},
-                //{"Тварь", List.of("Неизвестный вид животного, используйте значение Травоядное или Хищник")}
+                {"Виталик", true}
         };
 
     }
 
+    @Before
+    public void mockitoInit() {
+        MockitoAnnotations.openMocks(this);
+    }
+
     @Test
     public void getKittensTest() throws Exception {
-      Lion lion = new Lion("Самец",feline);
+        if(sex=="Самец"||sex=="Самка") {
+            Lion lion = new Lion(sex, feline);
+            lion.getKittens();
+            Mockito.verify(feline, Mockito.times(1)).getKittens();
+        }
+        try {
+            Lion lion = new Lion(sex, feline);
+        } catch (Exception exception) {
+            assertEquals("Используйте допустимые значения пола животного - самец или самка", exception.getMessage());
+        }
     }
 
     @Test
     public void doesHaveManeTest() throws Exception {
-        Lion lion = new Lion(sex,feline);
-        boolean actual = lion.doesHaveMane();
-        assertEquals(expected, actual);
+
+        if(sex=="Самец"||sex=="Самка") {
+            Lion lion = new Lion(sex, feline);
+            boolean actual = lion.doesHaveMane();
+            assertEquals(expected, actual);
+        }
+        try {
+            Lion lion = new Lion(sex, feline);
+        } catch (Exception exception) {
+            assertEquals("Используйте допустимые значения пола животного - самец или самка", exception.getMessage());
+        }
     }
+
 
     @Test
     public void getFoodTest() throws Exception {
-        Lion lion = new Lion(sex,feline);
-        System.out.println(lion.getFood());
+        if (sex == "Самец" || sex == "Самка") {
+            Lion lion = new Lion(sex, feline);
+            lion.getFood();
+            Mockito.verify(feline, Mockito.times(1)).getFood("Хищник");
+        }
+        try {
+            Lion lion = new Lion(sex, feline);
+        } catch (Exception exception) {
+            assertEquals("Используйте допустимые значения пола животного - самец или самка", exception.getMessage());
+        }
     }
-}
+    }
