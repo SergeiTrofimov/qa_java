@@ -1,9 +1,6 @@
 package com.example;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
@@ -17,7 +14,7 @@ public class FelineTest {
     @Test
     public void getEatMeatTest() throws Exception // проверяем метод getEatMeat
     {
-        List<String> actual=feline.eatMeat();
+        List<String> actual = feline.eatMeat();
         List<String> expected = List.of("Животные", "Птицы", "Рыба");
         assertEquals(expected, actual);
     }
@@ -25,9 +22,9 @@ public class FelineTest {
     @Test
     public void getFamilyTest() // проверяем метод getFamily
     {
-     String actual = feline.getFamily();
-     String expected = "Кошачьи";
-     assertEquals(expected, actual);
+        String actual = feline.getFamily();
+        String expected = "Кошачьи";
+        assertEquals(expected, actual);
     }
 
     @Test
